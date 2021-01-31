@@ -533,28 +533,32 @@ int Controls::update (SDL_Event *event, LoopType type) {
 
 			break;
 
-		case SDL_JOYAXISMOTION:
+		case SDL_JOYAXISMOTION: 
 
-			if (type == SET_JOYSTICK_LOOP) {
+			if (enable_JoyAxisMotion == 1){
 
-				if (event->jaxis.value < -16384)
-					return JOYSTICKANEG | event->jaxis.axis;
-				else if (event->jaxis.value > 16384)
-					return JOYSTICKAPOS | event->jaxis.axis;
+				if (type == SET_JOYSTICK_LOOP) {
 
-			}
-
-			for (count = 0; count < CONTROLS; count++)
-				if (event->jaxis.axis == axes[count].axis) {
-
-					if (!axes[count].direction && (event->jaxis.value < -16384))
-						axes[count].pressed = true;
-					else if (axes[count].direction && (event->jaxis.value > 16384))
-						axes[count].pressed = true;
-					else
-						axes[count].pressed = false;
+					if (event->jaxis.value < -16384)
+						return JOYSTICKANEG | event->jaxis.axis;
+					else if (event->jaxis.value > 16384)
+						return JOYSTICKAPOS | event->jaxis.axis;
 
 				}
+
+				for (count = 0; count < CONTROLS; count++)
+					if (event->jaxis.axis == axes[count].axis) {
+
+						if (!axes[count].direction && (event->jaxis.value < -16384))
+							axes[count].pressed = true;
+						else if (axes[count].direction && (event->jaxis.value > 16384))
+							axes[count].pressed = true;
+						else
+							axes[count].pressed = false;
+
+					}
+
+			}
 
 			break;
 
@@ -722,7 +726,7 @@ bool Controls::getCursor (int& x, int& y) {
 
 }
 
-
+ 
 /**
  * Determine whether or not the cursor has been released.
  *

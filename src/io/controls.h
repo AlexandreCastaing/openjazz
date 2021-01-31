@@ -55,6 +55,8 @@
 // Time interval
 #define T_KEY   200
 
+// Enable JOYAXISMOTION  ( 0 or 1 )
+#define enable_JoyAxisMotion 0
 
 // Class
 
